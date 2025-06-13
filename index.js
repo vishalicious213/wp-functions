@@ -1,12 +1,13 @@
 const main = document.getElementById("main")
 const website = document.getElementById("website")
-const webbtn = document.getElementById("website-btn")
+const postBtn = document.getElementById("post-btn")
+const pageBtn = document.getElementById("page-btn")
 let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com"
 
 // ⬇️ EVENT LISTENERS ⬇️
 
 website.addEventListener("click", handleChooseWebsite)
-webbtn.addEventListener("click", handleGetWebsiteData)
+postBtn.addEventListener("click", handleGetPosts)
 
 // ⬇️ EVENT HANDLERS ⬇️
 
@@ -28,7 +29,7 @@ function handleChooseWebsite() {
     }
 }
 
-function handleGetWebsiteData() {
+function handleGetPosts() {
     getPosts()
     .then(data => {
         console.log(data)
