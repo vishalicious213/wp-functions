@@ -1,4 +1,4 @@
-const main = document.getElementById("main")
+const content = document.getElementById("content")
 const website = document.getElementById("website")
 const postBtn = document.getElementById("post-btn")
 const pageBtn = document.getElementById("page-btn")
@@ -44,6 +44,7 @@ function handleGetPages() {
     getPages()
     .then(data => {
         console.log(data)
+        renderPages(data)
     })
     .catch(err => {
         console.error(`Could not get pages: ${err}`)
@@ -72,4 +73,21 @@ async function getPages() {
 
     const data = await response.json()
     return data
+}
+
+// ⬇️ RENDER FUNCTIONS ⬇️
+
+function renderPages(data) {
+    content.innerHTML = ""
+
+    data.forEach(page => {
+        const article = document.createElement("article")
+        article.innerHTML = `
+            <h2>${page.title.rendered}</h2>
+            <section>${page.content.rendered}</section>
+        `
+
+        content.appendChild(article)
+    })
+
 }
