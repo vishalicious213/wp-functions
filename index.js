@@ -1,7 +1,7 @@
 const main = document.getElementById("main")
 const website = document.getElementById("website")
 const webbtn = document.getElementById("website-btn")
-let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog"
+let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com"
 
 // ⬇️ EVENT LISTENERS ⬇️
 
