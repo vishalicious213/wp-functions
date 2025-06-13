@@ -51,3 +51,14 @@ async function getPosts(page=1, perPage=12) {
     const data = await response.json()
     return data
 }
+
+async function getPages() {
+    const response = await fetch(`${baseUrl}/pages`)
+    
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data
+}
