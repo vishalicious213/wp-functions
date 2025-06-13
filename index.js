@@ -1,9 +1,9 @@
 const main = document.getElementById("main")
-const url = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog/posts"
+const baseUrl = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog"
 const posts = getPosts()
 
 async function getPosts() {
-    const response = await fetch(url)
+    const response = await fetch(`${baseUrl}/posts`)
     
     if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`)
