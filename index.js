@@ -8,6 +8,7 @@ let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.co
 
 website.addEventListener("click", handleChooseWebsite)
 postBtn.addEventListener("click", handleGetPosts)
+pageBtn.addEventListener("click", handleGetPages)
 
 // ⬇️ EVENT HANDLERS ⬇️
 
@@ -36,6 +37,16 @@ function handleGetPosts() {
     })
     .catch(err => {
         console.error(`Could not get posts: ${err}`)
+    })
+}
+
+function handleGetPages() {
+    getPages()
+    .then(data => {
+        console.log(data)
+    })
+    .catch(err => {
+        console.error(`Could not get pages: ${err}`)
     })
 }
 
