@@ -1,20 +1,16 @@
 const main = document.getElementById("main")
 const website = document.getElementById("website")
+const webbtn = document.getElementById("website-btn")
 let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog"
-// const baseUrl = "https://public-api.wordpress.com/wp/v2/sites/uglybass.wordpress.com"
-// const baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com"
-// const baseUrl = "https://public-api.wordpress.com/wp/v2/sites/mortalequality.wordpress.com"
-const posts = getPosts()
 
 // ⬇️ EVENT LISTENERS ⬇️
 
-website.addEventListener("click", selectWebsite)
+website.addEventListener("click", handleChooseWebsite)
+webbtn.addEventListener("click", handleGetWebsiteData)
 
 // ⬇️ EVENT HANDLERS ⬇️
 
-function selectWebsite() {
-    console.log(website.value)
-
+function handleChooseWebsite() {
     if (website.value === "code") {
         baseUrl = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog"
     }
@@ -32,7 +28,18 @@ function selectWebsite() {
     }
 }
 
-// get posts
+function handleGetWebsiteData() {
+    getPosts()
+    .then(data => {
+        console.log(data)
+    })
+    .catch(err => {
+        console.error(`Could not get posts: ${err}`)
+    })
+}
+
+// ⬇️ UTILITIES ⬇️
+
 async function getPosts() {
     const response = await fetch(`${baseUrl}/posts`)
     
@@ -43,12 +50,3 @@ async function getPosts() {
     const data = await response.json()
     return data
 }
-
-// log posts to console
-// posts
-// .then(data => {
-//     console.log(data)
-// })
-// .catch(err => {
-//     console.error(`Could not get posts: ${err}`)
-// })
