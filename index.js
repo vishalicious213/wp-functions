@@ -33,7 +33,7 @@ function handleGetPosts() {
     getPosts()
     .then(data => {
         console.log(data)
-        renderPosts(data)
+        renderContent(data)
     })
     .catch(err => {
         console.error(`Could not get posts: ${err}`)
@@ -44,7 +44,7 @@ function handleGetPages() {
     getPages()
     .then(data => {
         console.log(data)
-        renderPages(data)
+        renderContent(data)
     })
     .catch(err => {
         console.error(`Could not get pages: ${err}`)
@@ -73,7 +73,7 @@ async function getPages() {
 
 // ⬇️ RENDER FUNCTIONS ⬇️
 
-function renderPages(data) {
+function renderContent(data) {
     content.innerHTML = ""
 
     data.forEach(page => {
@@ -81,20 +81,6 @@ function renderPages(data) {
         article.innerHTML = `
             <h2>${page.title.rendered}</h2>
             <section>${page.content.rendered}</section>
-        `
-
-        content.appendChild(article)
-    })
-}
-
-function renderPosts(data) {
-    content.innerHTML = ""
-
-    data.forEach(post => {
-        const article = document.createElement("article")
-        article.innerHTML = `
-            <h2>${post.title.rendered}</h2>
-            <section>${post.content.rendered}</section>
         `
 
         content.appendChild(article)
