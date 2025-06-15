@@ -2,7 +2,15 @@ const content = document.getElementById("content")
 const website = document.getElementById("website")
 const postBtn = document.getElementById("post-btn")
 const pageBtn = document.getElementById("page-btn")
-let baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com"
+
+const siteMap = {
+    code: "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog",
+    bass: "https://public-api.wordpress.com/wp/v2/sites/uglybass.wordpress.com",
+    hobby: "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com",
+    music: "https://public-api.wordpress.com/wp/v2/sites/mortalequality.wordpress.com"
+}
+
+let baseUrl = siteMap[code]
 
 // ⬇️ EVENT LISTENERS ⬇️
 
@@ -34,6 +42,7 @@ function handleGetPosts() {
     getPosts()
     .then(data => {
         console.log(data)
+        renderPosts(data)
     })
     .catch(err => {
         console.error(`Could not get posts: ${err}`)
@@ -89,5 +98,18 @@ function renderPages(data) {
 
         content.appendChild(article)
     })
+}
 
+function renderPosts(data) {
+    content.innerHTML = ""
+
+    data.forEach(post => {
+        const article = document.createElement("article")
+        article.innerHTML = `
+            <h2>${post.title.rendered}</h2>
+            <section>${post.content.rendered}</section>
+        `
+
+        content.appendChild(article)
+    })
 }
