@@ -73,18 +73,12 @@ async function getPages() {
 
 async function getCategories(postId) {
     const response = await fetch(`${baseUrl}/posts/${postId}`)
-    if (!response.ok) {
-        console.warn(`Failed to fetch post ${postId}: ${response.status}`)
-        return []
-    }
     const post = await response.json()
 
     const categoryIds = post.categories.join(',')
-    // console.log(postId, categoryIds)
 
     const categories = await fetch(`${baseUrl}/categories?include=${categoryIds}`)
     const categoryNames = await categories.json()
-    // console.log(postId, categoryNames)
 
     let names = []
     categoryNames.forEach(category => {
@@ -102,7 +96,7 @@ async function renderContent(data) {
 
     for (const item of data) {
         const article = document.createElement("article")
-        const categories = getCategories(item.id)
+        const categories = item.type === "post" ? getCategories(item.id) : []
 
         article.innerHTML = `
             <h2>${item.title.rendered}</h2>
