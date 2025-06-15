@@ -64,25 +64,11 @@ async function fetchContent(endpoint) {
 }
 
 async function getPosts(page=1, perPage=12) {
-    const response = await fetch(`${baseUrl}/posts?per_page=${perPage}&page=${page}`)
-    
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`)
-    }
-
-    const data = await response.json()
-    return data
+    return fetchContent(`posts?per_page=${perPage}&page=${page}`)
 }
 
 async function getPages() {
-    const response = await fetch(`${baseUrl}/pages`)
-    
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`)
-    }
-
-    const data = await response.json()
-    return data
+    return fetchContent(`pages`)
 }
 
 // ⬇️ RENDER FUNCTIONS ⬇️
