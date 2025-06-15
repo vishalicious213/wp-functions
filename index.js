@@ -71,6 +71,24 @@ async function getPages() {
     return fetchContent(`pages`)
 }
 
+async function getCategories(postId) {
+    const response = await fetch(`${baseUrl}/posts/${postId}`)
+    const post = await response.json()
+
+    const categoryIds = post.categories.join(',')
+    // console.log(postId, categoryIds)
+
+    const categories = await fetch(`${baseUrl}/categories?include=${categoryIds}`)
+    const categoryNames = await categories.json()
+    // console.log(postId, categoryNames)
+
+    let names = []
+    categoryNames.forEach(category => {
+        names.push(category.name)
+    })
+    console.log(post.title.rendered, names)
+}
+
 // ⬇️ RENDER FUNCTIONS ⬇️
 
 function renderContent(data) {
@@ -88,5 +106,6 @@ function renderContent(data) {
         `
 
         content.appendChild(article)
+        getCategories(item.id)
     })
 }
