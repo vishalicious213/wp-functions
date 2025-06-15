@@ -73,6 +73,10 @@ async function getPages() {
 
 async function getCategories(postId) {
     const response = await fetch(`${baseUrl}/posts/${postId}`)
+    if (!response.ok) {
+        console.warn(`Failed to fetch post ${postId}: ${response.status}`)
+        return []
+    }
     const post = await response.json()
 
     const categoryIds = post.categories.join(',')
