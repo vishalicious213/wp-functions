@@ -10,7 +10,7 @@ const siteMap = {
     music: "https://public-api.wordpress.com/wp/v2/sites/mortalequality.wordpress.com"
 }
 
-let baseUrl = siteMap[code]
+let baseUrl = siteMap["hobby"]
 
 // ⬇️ EVENT LISTENERS ⬇️
 
@@ -21,20 +21,11 @@ pageBtn.addEventListener("click", handleGetPages)
 // ⬇️ EVENT HANDLERS ⬇️
 
 function handleChooseWebsite() {
-    if (website.value === "code") {
-        baseUrl = "https://public-api.wordpress.com/wp/v2/sites/neophyte.home.blog"
-    }
-
-    if (website.value === "bass") {
-        baseUrl = "https://public-api.wordpress.com/wp/v2/sites/uglybass.wordpress.com"
-    }
-
-    if (website.value === "hobby") {
-        baseUrl = "https://public-api.wordpress.com/wp/v2/sites/bt4wall.wordpress.com"
-    }
-
-    if (website.value === "music") {
-        baseUrl = "https://public-api.wordpress.com/wp/v2/sites/mortalequality.wordpress.com"
+    const selected = website.value
+    if (siteMap[selected]) {
+        baseUrl = siteMap[selected]
+    } else {
+        console.warn("Unknown site selected")
     }
 }
 
