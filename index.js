@@ -53,6 +53,16 @@ function handleGetPages() {
 
 // ⬇️ UTILITIES ⬇️
 
+async function fetchContent(endpoint) {
+    const response = await fetch(`${baseUrl}/${endpoint}`)
+
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`)
+    }
+
+    return await response.json()
+}
+
 async function getPosts(page=1, perPage=12) {
     const response = await fetch(`${baseUrl}/posts?per_page=${perPage}&page=${page}`)
     
