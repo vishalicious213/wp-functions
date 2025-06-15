@@ -87,25 +87,28 @@ async function getCategories(postId) {
         names.push(category.name)
     })
     console.log(post.title.rendered, names)
+
+    return names
 }
 
 // ⬇️ RENDER FUNCTIONS ⬇️
 
-function renderContent(data) {
+async function renderContent(data) {
     content.innerHTML = ""
 
-    data.forEach(item => {
+    for (const item of data) {
         const article = document.createElement("article")
+        const categories = getCategories(item.id)
 
         article.innerHTML = `
             <h2>${item.title.rendered}</h2>
+            <p>${(await categories).join(", ")}</p>
             <details>
                 <summary>View Content</summary>
-                    <section>${item.content.rendered}</section>
+                <section>${item.content.rendered}</section>
             </details>
         `
 
         content.appendChild(article)
-        getCategories(item.id)
-    })
+    }
 }
