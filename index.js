@@ -76,11 +76,11 @@ async function getPages() {
 function renderContent(data) {
     content.innerHTML = ""
 
-    data.forEach(page => {
+    data.forEach(item => {
         const article = document.createElement("article")
         article.innerHTML = `
-            <h2>${page.title.rendered}</h2>
-            <section>${page.content.rendered}</section>
+            <h2>${item.title.rendered}</h2>
+            <section>${item.content.rendered}</section>
         `
 
         content.appendChild(article)
