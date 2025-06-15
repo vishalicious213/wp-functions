@@ -29,3 +29,16 @@ select {
 button {
     width: 100%;
 }
+
+hr {
+    width: 100%;
+    margin: .5rem 0;
+}
+
+article {
+    margin: 1rem;
+}
+
+h2 {
+    font-size: 1.1rem;
+}

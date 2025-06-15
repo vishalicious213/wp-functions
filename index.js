@@ -78,9 +78,13 @@ function renderContent(data) {
 
     data.forEach(item => {
         const article = document.createElement("article")
+
         article.innerHTML = `
             <h2>${item.title.rendered}</h2>
-            <section>${item.content.rendered}</section>
+            <details>
+                <summary>View Content</summary>
+                    <section>${item.content.rendered}</section>
+            </details>
         `
 
         content.appendChild(article)
