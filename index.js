@@ -84,20 +84,16 @@ async function getDetails(postId, postType) {
     const tagsResponse = await fetch(`${baseUrl}/tags?include=${tagIds}`)
     const categoryNames = await categoriesResponse.json()
     const tagNames = await tagsResponse.json()
-    console.log(categoryNames)
-    console.log(tagNames)
 
     let categories = []
     categoryNames.forEach(category => {
         categories.push(category.name)
     })
-    console.log(post.title.rendered, categories)
 
     let tags = []
     tagNames.forEach(tag => {
         tags.push(tag.name)
     })
-    console.log(post.title.rendered, tags)
 
     return { categories, tags }
 }
