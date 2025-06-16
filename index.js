@@ -71,7 +71,7 @@ async function getPages() {
     return fetchContent(`pages`)
 }
 
-async function getCategories(postId) {
+async function getDetails(postId) {
     const response = await fetch(`${baseUrl}/posts/${postId}`)
     const post = await response.json()
 
@@ -107,7 +107,7 @@ async function renderContent(data) {
 
     for (const item of data) {
         const article = document.createElement("article")
-        const details = await getCategories(item.id)
+        const details = await getDetails(item.id)
         const categories = item.type === "post" ? details.categories : []
         const tags = item.type === "post" ? details.tags : []
 
