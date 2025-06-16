@@ -76,17 +76,28 @@ async function getCategories(postId) {
     const post = await response.json()
 
     const categoryIds = post.categories.join(',')
+    const tagIds = post.tags.join(',')
 
-    const categories = await fetch(`${baseUrl}/categories?include=${categoryIds}`)
-    const categoryNames = await categories.json()
+    const categoriesResponse = await fetch(`${baseUrl}/categories?include=${categoryIds}`)
+    const tagsResponse = await fetch(`${baseUrl}/tags?include=${tagIds}`)
+    const categoryNames = await categoriesResponse.json()
+    const tagNames = await tagsResponse.json()
+    console.log(categoryNames)
+    console.log(tagNames)
 
-    let names = []
+    let categories = []
     categoryNames.forEach(category => {
-        names.push(category.name)
+        categories.push(category.name)
     })
-    console.log(post.title.rendered, names)
+    console.log(post.title.rendered, categories)
 
-    return names
+    let tags = []
+    tagNames.forEach(tag => {
+        tags.push(tag.name)
+    })
+    console.log(post.title.rendered, tags)
+
+    return { categories, tags }
 }
 
 // ⬇️ RENDER FUNCTIONS ⬇️
@@ -96,11 +107,14 @@ async function renderContent(data) {
 
     for (const item of data) {
         const article = document.createElement("article")
-        const categories = item.type === "post" ? getCategories(item.id) : []
+        const details = await getCategories(item.id)
+        const categories = item.type === "post" ? details.categories : []
+        const tags = item.type === "post" ? details.tags : []
 
         article.innerHTML = `
             <h2>${item.title.rendered}</h2>
-            <p>${(await categories).join(", ")}</p>
+            <p><strong>Categories: </strong>${categories.join(", ")}</p>
+            <p><strong>Tags: </strong>${tags.join(", ")}</p>
             <details>
                 <summary>View Content</summary>
                 <section>${item.content.rendered}</section>
