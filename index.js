@@ -71,7 +71,9 @@ async function getPages() {
     return fetchContent(`pages`)
 }
 
-async function getDetails(postId) {
+async function getDetails(postId, postType) {
+    if (postType === "page") return
+
     const response = await fetch(`${baseUrl}/posts/${postId}`)
     const post = await response.json()
 
@@ -107,14 +109,14 @@ async function renderContent(data) {
 
     for (const item of data) {
         const article = document.createElement("article")
-        const details = await getDetails(item.id)
-        const categories = item.type === "post" ? details.categories : []
-        const tags = item.type === "post" ? details.tags : []
+        const details = await getDetails(item.id, item.type)
+        const categories = item.type === "post" ? details.categories.join(", ") : []
+        const tags = item.type === "post" ? details.tags.join(", ") : []
 
         article.innerHTML = `
             <h2>${item.title.rendered}</h2>
-            <p><strong>Categories: </strong>${categories.join(", ")}</p>
-            <p><strong>Tags: </strong>${tags.join(", ")}</p>
+            ${item.type === "post" ? `<p><strong>Categories: </strong>${categories}</p>` : ""}
+            ${item.type === "post" ? `<p><strong>Tags: </strong>${tags}</p>` : ""}
             <details>
                 <summary>View Content</summary>
                 <section>${item.content.rendered}</section>
