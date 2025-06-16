@@ -80,8 +80,11 @@ async function getDetails(postId, postType) {
     const categoryIds = post.categories.join(',')
     const tagIds = post.tags.join(',')
 
-    const categoriesResponse = await fetch(`${baseUrl}/categories?include=${categoryIds}`)
-    const tagsResponse = await fetch(`${baseUrl}/tags?include=${tagIds}`)
+    const [categoriesResponse, tagsResponse] = await Promise.all([
+        fetch(`${baseUrl}/categories?include=${categoryIds}`),
+        fetch(`${baseUrl}/tags?include=${tagIds}`)
+    ])
+
     const categoryNames = await categoriesResponse.json()
     const tagNames = await tagsResponse.json()
 
